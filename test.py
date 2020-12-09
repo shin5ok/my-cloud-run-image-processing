@@ -17,6 +17,8 @@ import base64
 import json
 import os
 import sys
+import json
+from datetime import datetime
 
 from flask import Flask, request
 
@@ -34,3 +36,10 @@ def _test():
     print("/test is retrieved")
     return ("test", 200)
 
+@app.route('/datetime')
+def _datetime():
+    return json.dumps({'datetime':datetime.now().strftime("%Y-%m-%dT%H:%M:%S")})
+
+if __name__ == '__main__':
+    PORT = int(os.getenv('PORT')) if os.getenv('PORT') else 8080
+    app.run(host='127.0.0.1', port=PORT, debug=True)
